@@ -16,7 +16,7 @@ Any client speaking the SHRU protocol can talk to this - [SHRU_Cloud-PHP-SDK](ht
 
 ## Requirements
 
-- PHP 7.4+ (the admin pages use arrow functions)
+- PHP 7.4 or newer (the admin pages use arrow functions). **Recommended: PHP 8.5.12 or newer**, which includes the fixes for CVE-2026-109618 and CVE-2026-109619 (PHP2Shell). Older branches are fixed in 8.4.27, 8.3.36 and 8.2.35; PHP 8.1 and older no longer receive regular security updates.
 - Apache with `mod_rewrite` (a `.htaccess` is included, see step 4 below), or an equivalent rewrite rule on another webserver
 - HTTPS in production - the API refuses plain HTTP requests outright
 
