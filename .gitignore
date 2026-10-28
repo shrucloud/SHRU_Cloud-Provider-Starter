@@ -1,0 +1,5 @@
+/config.php
+/data/*
+!/data/.gitkeep
+!/data/.htaccess
+.DS_Store

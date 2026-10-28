@@ -1,0 +1,22 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# The SHRU Cloud protocol is fixed at exactly /api/shru, no trailing slash
+# (see the SDK's own Client::normalizeBaseUrl(), which always appends this
+# path exactly that way). The real script deliberately does NOT live at
+# public/api/shru/index.php - if it did, that physical directory would
+# collide with this exact URL, and Apache resolves that collision (via
+# mod_dir's directory-slash handling) before this rewrite rule ever gets a
+# say, 301-redirecting a bare /api/shru request to /api/shru/ regardless of
+# what's written below. A signed HMAC request is never safe to blindly
+# redirect-and-retry - this SDK's own Client deliberately never follows
+# redirects, same reasoning as every other SHRU Cloud platform - so that
+# redirect just shows up as a broken, unreadable response instead of
+# working. Routing to a physically different path (_internal/api-shru.php)
+# sidesteps the collision entirely - confirmed against a real Apache
+# instance, not just in theory.
+RewriteRule ^api/shru/?$ _internal/api-shru.php [QSA,END]
+</IfModule>
+
+# Only index.php files should ever be reachable directly.
+Options -Indexes
